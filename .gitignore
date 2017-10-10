@@ -1,0 +1,9 @@
+.idea
+out
+build
+
+functions/node_modules
+functions/*.js
+functions/index
+
+*.log

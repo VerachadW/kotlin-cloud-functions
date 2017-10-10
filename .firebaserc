@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "playground": "kotlin-playground",
+    "default": "kotlin-playground"
+  }
+}
