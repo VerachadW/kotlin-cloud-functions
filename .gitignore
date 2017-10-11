@@ -1,6 +1,7 @@
 .idea
 out
 build
+.gradle
 
 functions/node_modules
 functions/*.js
