@@ -1,7 +1,7 @@
 .idea
 out
 build
-.gradle
+.gradle/*
 
 functions/node_modules
 functions/*.js

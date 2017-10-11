@@ -4,7 +4,8 @@
   "dependencies": {
     "firebase-admin": "~5.2.1",
     "firebase-functions": "^0.6.2",
-    "kotlin": "^1.1.51"
+    "kotlin": "^1.1.51",
+    "latlon-geohash": "^1.1.0"
   },
   "private": true
 }

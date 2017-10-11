@@ -5,6 +5,7 @@ external val exports: dynamic
 
 fun main(args: Array<String>) {
     val functions = require("firebase-functions")
+    val geoHash = require("latlon-geohash")
 
     exports.helloWorld = functions.https.onRequest { _, res ->
         res.status(200).send("Hello World!")
@@ -15,21 +16,22 @@ fun main(args: Array<String>) {
         res.status(200).send(p)
     }
 
-    exports.promise = functions.https.onRequest { req, res ->
-        Promise<Double>({ resolve, _ ->
-            val piValue = (0..req.query.number).sumByDouble {
-                val num = if(it % 2L == 0L) -1.0 else 1.0
-                num / (2 * it + 1)
+    exports.geoHash = functions.https.onRequest { req, res ->
+        Promise<String>({ resolve, reject ->
+            if (req.query?.lat == null || req.query?.lng == null) {
+                reject(Throwable("Need lat and lng query parameters"))
             }
-            resolve(piValue)
+            val precision = req.query.precision ?: 5
+            val hash = geoHash.encode(req.query.lat, req.query.lng, precision)
+            resolve(hash)
         }).then({
             console.log("value $it")
-            res.status(200).send(it.toString())
+            res.status(200).send(it)
         }).catch {
+            res.status(500).send(it.message)
             console.log("error: $it")
         }
     }
-
 }
 
 enum class ItemType {
